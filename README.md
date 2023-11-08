@@ -1,4 +1,3 @@
-# gnport
+gn
 
-Port of gn on z/OS
-
+A port of the Google Generate Ninja (gn) meta-build system to z/OS Open Tools project
