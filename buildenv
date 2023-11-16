@@ -4,7 +4,7 @@ export ZOPEN_DEV_URL="https://gn.googlesource.com/gn"
 export ZOPEN_DEV_TYPE="GIT"
 export ZOPEN_CHECK_TIMEOUT=20000
 # This specifies dependencies.  TODO: Should it be zoslib or zoslibport? Others have no port suffix.
-export ZOPEN_DEV_DEPS="zoslib git curl gzip make m4"
+export ZOPEN_DEV_DEPS="zoslib python ninja git curl gzip make m4 comp_clang"
 # This specifies to use either DEV or STABLE build.  It appears
 # you can use a tarball url for a STABLE build and a git
 # repo for a DEV build.
@@ -14,6 +14,27 @@ export ZOPEN_BUILD_LINE="DEV"
 #export ZOPEN_STABLE_DEPS="zoslib"
 export ZOPEN_RUNTIME_DEPS="bash"
 export ZOPEN_CATEGORIES="development"
+export ZOPEN_COMP=CLANG
+
+# from igor
+ZOPEN_CONFIGURE="zopen_configure"
+ZOPEN_MAKE="zopen_build"
+ZOPEN_CHECK="zopen_check"
+
+
+zopen_configure() {
+ # ORIG IGOR  python3 build/gen.py --zoslib-dir `pwd`/third_party/zoslib
+  python build/gen.py --zoslib-dir $HOME/zopen/dev/zoslibport/zoslib
+}
+zopen_build() {
+  # is this needed?
+  # cd gn
+  ninja -C out -j $ZOPEN_NUM_JOBS -v
+}
+zopen_check() {
+  ./out/gn_unittests
+}
+
 
 zopen_check_results()
 {
@@ -34,3 +55,4 @@ zopen_get_version()
   # Rather than hardcoding the version, obtain the version by running the tool/library
   echo "1.0.0"
 }
+
