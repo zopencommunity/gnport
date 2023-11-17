@@ -1,9 +1,14 @@
 # This can be a git url or tarball url
 export ZOPEN_DEV_URL="https://gn.googlesource.com/gn"
+# This is how you specify a branch for the git repo specified above
+# Its not needed unless this particular branch uses something other
+# than the default main branch.
+export ZOPEN_DEV_BRANCH="main"
 # To have the URL be recognized as a GIT repo
 export ZOPEN_DEV_TYPE="GIT"
 export ZOPEN_CHECK_TIMEOUT=20000
-# This specifies dependencies.  TODO: Should it be zoslib or zoslibport? Others have no port suffix.
+# This specifies other ZOSOpenTools dependencies.  
+# Repos are specifed without a port suffix.
 export ZOPEN_DEV_DEPS="zoslib python ninja git curl gzip make m4 comp_clang"
 # This specifies to use either DEV or STABLE build.  It appears
 # you can use a tarball url for a STABLE build and a git
@@ -16,7 +21,8 @@ export ZOPEN_RUNTIME_DEPS="bash"
 export ZOPEN_CATEGORIES="development"
 export ZOPEN_COMP=CLANG
 
-# from igor
+# These settings are for specifying custom build 
+# types other than configure and make.
 ZOPEN_CONFIGURE="zopen_configure"
 ZOPEN_MAKE="zopen_build"
 ZOPEN_CHECK="zopen_check"
@@ -27,8 +33,6 @@ zopen_configure() {
   python build/gen.py --zoslib-dir $HOME/zopen/dev/zoslibport/zoslib
 }
 zopen_build() {
-  # is this needed?
-  # cd gn
   ninja -C out -j $ZOPEN_NUM_JOBS -v
 }
 zopen_check() {
