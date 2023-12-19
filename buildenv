@@ -30,7 +30,7 @@ ZOPEN_CHECK="zopen_check"
 
 zopen_configure() {
  # ORIG IGOR  python3 build/gen.py --zoslib-dir `pwd`/third_party/zoslib
-  python build/gen.py --zoslib-dir $HOME/zopen/dev/zoslibport/zoslib
+  python build/gen.py --zoslib-dir $ZOSLIB_HOME
 }
 zopen_build() {
   ninja -C out -j $ZOPEN_NUM_JOBS -v

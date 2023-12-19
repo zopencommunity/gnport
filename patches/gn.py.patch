@@ -1,0 +1,41 @@
+diff --git a/build/gen.py b/build/gen.py
+index 232e5363..404239b9 100755
+--- a/build/gen.py
++++ b/build/gen.py
+@@ -201,8 +201,8 @@ def main(argv):
+                       default='../third_party/zoslib',
+                       dest='zoslib_dir',
+                       help=('Specify the path of ZOSLIB directory, to link ' +
+-                            'with <ZOSLIB_DIR>/install/lib/libzoslib.a, and ' +
+-                            'add -I<ZOSLIB_DIR>/install/include to the compile ' +
++                            'with <ZOSLIB_DIR>/lib/libzoslib.a, and ' +
++                            'add -I<ZOSLIB_DIR>/include to the compile ' +
+                             'commands. See README.md for details.'))
+ 
+   args_list.add_to_parser(parser)
+@@ -396,7 +396,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+       '.',
+   ]
+   if platform.is_zos():
+-    include_dirs += [ options.zoslib_dir + '/install/include' ]
++    include_dirs += [ options.zoslib_dir + '/include' ]
+ 
+   libs = []
+ 
+@@ -511,6 +511,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+       cflags.append('-Wno-unused-function')
+       cflags.append('-D_OPEN_SYS_FILE_EXT')
+       cflags.append('-DPATH_MAX=1024')
++      cflags.append('-DZOSLIB_OVERRIDE_CLIB')
+ 
+     if platform.is_posix() and not platform.is_haiku():
+       ldflags.append('-pthread')
+@@ -869,7 +870,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+     ])
+ 
+   if platform.is_zos():
+-    libs.extend([ options.zoslib_dir + '/install/lib/libzoslib.a' ])
++    libs.extend([ options.zoslib_dir + '/lib/libzoslib.a' ])
+ 
+   if platform.is_windows():
+     static_libraries['base']['sources'].extend([
