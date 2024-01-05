@@ -1,8 +1,18 @@
 diff --git a/build/gen.py b/build/gen.py
-index adb622a9..1b3558fe 100755
+index 232e5363..b5020b15 100755
 --- a/build/gen.py
 +++ b/build/gen.py
-@@ -509,6 +509,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+@@ -469,6 +469,9 @@ def WriteGNNinja(path, platform, host, options, args_list):
+         '-std=c++17'
+     ])
+ 
++    if platform.is_zos():
++      cflags.extend(['-Wno-unknown-pragmas'])
++
+     # flags not supported by gcc/g++.
+     if cxx == 'clang++':
+       cflags.extend(['-Wrange-loop-analysis', '-Wextra-semi-stmt'])
+@@ -511,6 +514,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
        cflags.append('-Wno-unused-function')
        cflags.append('-D_OPEN_SYS_FILE_EXT')
        cflags.append('-DPATH_MAX=1024')
