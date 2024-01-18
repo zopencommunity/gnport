@@ -21,6 +21,9 @@ export ZOPEN_RUNTIME_DEPS="bash"
 export ZOPEN_CATEGORIES="development"
 export ZOPEN_COMP=CLANG
 
+export ZOPEN_CLEAN="zopen_cleanup"
+export ZOPEN_INSTALL="zopen_install"
+
 # These settings are for specifying custom build 
 # types other than configure and make.
 ZOPEN_CONFIGURE="zopen_configure"
@@ -29,8 +32,7 @@ ZOPEN_CHECK="zopen_check"
 
 
 zopen_configure() {
- # ORIG IGOR  python3 build/gen.py --zoslib-dir `pwd`/third_party/zoslib
-  python build/gen.py --zoslib-dir $HOME/zopen/dev/zoslibport/zoslib
+  python build/gen.py --zoslib-dir ${ZOSLIB_HOME} --link-lib="$LIBS"
 }
 zopen_build() {
   ninja -C out -j $ZOPEN_NUM_JOBS -v
@@ -38,7 +40,11 @@ zopen_build() {
 zopen_check() {
   ./out/gn_unittests
 }
-
+zopen_install() {
+  rm -rf ${ZOPEN_INSTALL_DIR}
+  mkdir -p ${ZOPEN_INSTALL_DIR}
+  cp -pR out/* ${ZOPEN_INSTALL_DIR}
+}
 
 zopen_check_results()
 {
