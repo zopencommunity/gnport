@@ -7,7 +7,7 @@ A port of the Google Generate Ninja (gn) meta-build system to z/OS Open Tools pr
 
 ### Developer Notes
 
-Before building, use this workflow to ensure the file system is in 
+In case of an error, use this workflow to ensure the file system is in 
 pristine state.
 
 ```
