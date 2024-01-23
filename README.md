@@ -24,6 +24,8 @@ $ find . -name "libzoslib*"
 
 A good build will have results in ~/zopen as shown:
 
+(NOTE: the timestamps will vary over time.)
+
 ```
 $ ~/zopen
 $ find . -name "libzoslib*"
