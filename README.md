@@ -5,7 +5,7 @@
 A port of the Google Generate Ninja (gn) meta-build system to z/OS Open Tools project
 
 
-### Developer Notes
+## Developer Notes
 
 In case of an error, use this workflow to ensure the file system is in 
 pristine state.
@@ -19,7 +19,23 @@ $ zopen clean -d
 Afterwards, examine the file system for no stale binaries.
 
 ```
+$ cd ${HOME}/zopen
 $ find . -name "libzoslib*"
+```
+
+Note, a copy of zoslib will show up as `$HOME/zopen/usr/local/bin/CMakeFiles/libzoslib.dir`
+but that is ok.  No need to remove in order to build gnport.
+
+
+
+### Actual build of gnport
+
+Once the the filesystem is pristine, do the actual build.
+
+```
+$ cd ${HOME}/zopen/dev/gnport
+$ rm -rf gn
+$ zopen build
 ```
 
 A good build will have results in ~/zopen as shown:
