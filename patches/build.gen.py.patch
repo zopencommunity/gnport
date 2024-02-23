@@ -1,8 +1,8 @@
 diff --git a/build/gen.py b/build/gen.py
-index 07b699b0..f17d247e 100755
+index 41d1571b..cf46e027 100755
 --- a/build/gen.py
 +++ b/build/gen.py
-@@ -201,8 +201,8 @@ def main(argv):
+@@ -206,8 +206,8 @@ def main(argv):
                        default='../third_party/zoslib',
                        dest='zoslib_dir',
                        help=('Specify the path of ZOSLIB directory, to link ' +
@@ -13,7 +13,16 @@ index 07b699b0..f17d247e 100755
                              'commands. See README.md for details.'))
  
    args_list.add_to_parser(parser)
-@@ -469,6 +469,9 @@ def WriteGNNinja(path, platform, host, options, args_list):
+@@ -401,7 +401,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+       '.',
+   ]
+   if platform.is_zos():
+-    include_dirs += [ options.zoslib_dir + '/install/include' ]
++    include_dirs += [ options.zoslib_dir + '/include' ]
+ 
+   libs = []
+ 
+@@ -480,6 +480,9 @@ def WriteGNNinja(path, platform, host, options, args_list):
          '-std=c++20'
      ])
  
@@ -23,15 +32,7 @@ index 07b699b0..f17d247e 100755
      # flags not supported by gcc/g++.
      if cxx == 'clang++':
        cflags.extend(['-Wrange-loop-analysis', '-Wextra-semi-stmt'])
-@@ -511,6 +514,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
-       cflags.append('-Wno-unused-function')
-       cflags.append('-D_OPEN_SYS_FILE_EXT')
-       cflags.append('-DPATH_MAX=1024')
-+      cflags.append('-DZOSLIB_OVERRIDE_CLIB')
- 
-     if platform.is_posix() and not platform.is_haiku():
-       ldflags.append('-pthread')
-@@ -869,7 +873,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+@@ -885,7 +888,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
      ])
  
    if platform.is_zos():
