@@ -1,5 +1,5 @@
 diff --git a/build/gen.py b/build/gen.py
-index 41d1571b..cf46e027 100755
+index 9168035b..7e420980 100755
 --- a/build/gen.py
 +++ b/build/gen.py
 @@ -206,8 +206,8 @@ def main(argv):
@@ -13,7 +13,7 @@ index 41d1571b..cf46e027 100755
                              'commands. See README.md for details.'))
  
    args_list.add_to_parser(parser)
-@@ -401,7 +401,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+@@ -412,7 +412,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
        '.',
    ]
    if platform.is_zos():
@@ -22,17 +22,17 @@ index 41d1571b..cf46e027 100755
  
    libs = []
  
-@@ -480,6 +480,9 @@ def WriteGNNinja(path, platform, host, options, args_list):
+@@ -491,6 +491,9 @@ def WriteGNNinja(path, platform, host, options, args_list):
          '-std=c++20'
      ])
  
 +    if platform.is_zos():
 +      cflags.extend(['-Wno-unknown-pragmas'])
 +
-     # flags not supported by gcc/g++.
-     if cxx == 'clang++':
-       cflags.extend(['-Wrange-loop-analysis', '-Wextra-semi-stmt'])
-@@ -885,7 +888,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+     if is_gcc(cxx):
+       cflags.append('-Wno-redundant-move')
+       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104336
+@@ -905,7 +908,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
      ])
  
    if platform.is_zos():
