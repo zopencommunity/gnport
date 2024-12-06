@@ -9,7 +9,7 @@ export ZOPEN_DEV_TYPE="GIT"
 export ZOPEN_CHECK_TIMEOUT=20000
 # This specifies other ZOSOpenTools dependencies.  
 # Repos are specifed without a port suffix.
-export ZOPEN_DEV_DEPS="zoslib python ninja git curl gzip make m4 comp_clang"
+export ZOPEN_DEV_DEPS="zoslib check_python ninja git curl gzip make m4 check_clang"
 # This specifies to use either DEV or STABLE build.  It appears
 # you can use a tarball url for a STABLE build and a git
 # repo for a DEV build.
