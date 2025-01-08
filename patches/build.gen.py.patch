@@ -1,5 +1,5 @@
 diff --git a/build/gen.py b/build/gen.py
-index 9168035b..7e420980 100755
+index d1c649cb..c3084a4f 100755
 --- a/build/gen.py
 +++ b/build/gen.py
 @@ -206,8 +206,8 @@ def main(argv):
@@ -13,7 +13,7 @@ index 9168035b..7e420980 100755
                              'commands. See README.md for details.'))
  
    args_list.add_to_parser(parser)
-@@ -412,7 +412,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+@@ -417,7 +417,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
        '.',
    ]
    if platform.is_zos():
@@ -22,7 +22,7 @@ index 9168035b..7e420980 100755
  
    libs = []
  
-@@ -491,6 +491,9 @@ def WriteGNNinja(path, platform, host, options, args_list):
+@@ -496,6 +496,9 @@ def WriteGNNinja(path, platform, host, options, args_list):
          '-std=c++20'
      ])
  
@@ -32,7 +32,15 @@ index 9168035b..7e420980 100755
      if is_gcc(cxx):
        cflags.append('-Wno-redundant-move')
        # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104336
-@@ -905,7 +908,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+@@ -536,6 +539,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
+       cflags.append('-D_OPEN_SYS_FILE_EXT')
+       cflags.append('-DPATH_MAX=1024')
+       cflags.append('-DZOSLIB_OVERRIDE_CLIB')
++      ldflags.append('-m64')
+ 
+     if platform.is_posix() and not platform.is_haiku():
+       ldflags.append('-pthread')
+@@ -905,7 +909,7 @@ def WriteGNNinja(path, platform, host, options, args_list):
      ])
  
    if platform.is_zos():
