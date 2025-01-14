@@ -41,23 +41,16 @@ zopen_check() {
   ./out/gn_unittests
 }
 zopen_install() {
+  # gn builds its final executable in the top level of the git repo.
+  # zopen expects executables to be in a bin subdir of the git repo.
+  # After the build is complete, create the bin dir and copy gn to this dir.
+  # With this change, zopen will create the links from ~/zopen/usr/local/bin/gn
+  # to ~/zopen/usr/local/zopen/gn/gn/gn and it will be in the path.
+  #
   rm -rf ${ZOPEN_INSTALL_DIR}
-  mkdir -p ${ZOPEN_INSTALL_DIR}
+  mkdir -p ${ZOPEN_INSTALL_DIR}/bin
   cp -pR out/* ${ZOPEN_INSTALL_DIR}
-  # Need to create a link from ~/zopen/usr/local/bin/gn to ~/zopen/usr/local/zopen/gn/gn/gn
-  # The link needs to be done via:
-  #   cd ~/zopen/usr/local/bin
-  #   ln -sf ../zopen/gn/gn/gn gn
-  # Potential ways to get to proper dir:
-  #   ZOPEN_PKGINSTALL: ~/zopen/usr/local/zopen
-  #   ZOPEN_INSTALL_DIR: ~/zopen/usr/local/zopen/gn/gn-main
-  # echo "ZOPEN_PKGINSTALL: ${ZOPEN_PKGINSTALL}"
-  # echo "ZOPEN_INSTALL_DIR: ${ZOPEN_INSTALL_DIR}"
-  cd ${ZOPEN_PKGINSTALL}
-  cd ../bin
-  echo $(pwd)
-  ln -sf ../zopen/gn/gn/gn gn
-  cd -
+  mv ${ZOPEN_INSTALL_DIR}/gn ${ZOPEN_INSTALL_DIR}/bin/.
 }
 
 zopen_check_results()
