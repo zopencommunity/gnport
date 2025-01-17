@@ -1,5 +1,7 @@
 # This can be a git url or tarball url
 export ZOPEN_DEV_URL="https://gn.googlesource.com/gn"
+# make sure we pull from a specific branch
+export ZOPEN_DEV_TAG="c97a86a72105f3328a540f5a5ab17d11989ab7dd"
 # This is how you specify a branch for the git repo specified above
 # Its not needed unless this particular branch uses something other
 # than the default main branch.
