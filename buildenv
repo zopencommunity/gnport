@@ -1,5 +1,7 @@
 # This can be a git url or tarball url
 export ZOPEN_DEV_URL="https://gn.googlesource.com/gn"
+# make sure we pull from a specific branch
+export ZOPEN_DEV_TAG="c97a86a72105f3328a540f5a5ab17d11989ab7dd"
 # This is how you specify a branch for the git repo specified above
 # Its not needed unless this particular branch uses something other
 # than the default main branch.
@@ -41,9 +43,16 @@ zopen_check() {
   ./out/gn_unittests
 }
 zopen_install() {
+  # gn builds its final executable in the top level of the git repo.
+  # zopen expects executables to be in a bin subdir of the git repo.
+  # After the build is complete, create the bin dir and copy gn to this dir.
+  # With this change, zopen will create the links from ~/zopen/usr/local/bin/gn
+  # to ~/zopen/usr/local/zopen/gn/gn/gn and it will be in the path.
+  #
   rm -rf ${ZOPEN_INSTALL_DIR}
-  mkdir -p ${ZOPEN_INSTALL_DIR}
+  mkdir -p ${ZOPEN_INSTALL_DIR}/bin
   cp -pR out/* ${ZOPEN_INSTALL_DIR}
+  mv ${ZOPEN_INSTALL_DIR}/gn ${ZOPEN_INSTALL_DIR}/bin/.
 }
 
 zopen_check_results()
