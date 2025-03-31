@@ -32,6 +32,9 @@ ZOPEN_CONFIGURE="zopen_configure"
 ZOPEN_MAKE="zopen_build"
 ZOPEN_CHECK="zopen_check"
 
+# This is required, otherwise `git describe ..` fails with error:
+# fatal: No names found, cannot describe anything.
+ZOPEN_CLONE_FULL="yes"
 
 zopen_configure() {
   python build/gen.py --zoslib-dir ${ZOSLIB_HOME} --link-lib="$LIBS"
